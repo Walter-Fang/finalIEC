@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <!-- <script src="/canvas1.js"></script> -->
+    <script src="/demo.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    
+
+    
+    <title>Interactive image evolution</title>
+
+    <style type="text/css">
+        *{margin: 0px;padding: 0px;border: 0px}
+        .container{
+          
+          padding: 50px;
+          /* position: absolute; */
+        }
+        /* canvas { border: 1px solid black; }; */
+
+        
+        #canvasImage{
+            display: grid;
+            grid-template-columns: 125px 125px 125px 125px 125px;
+            grid-template-rows: 125px 125px 125px 125px 125px;
+            grid-row-gap: 5px;
+            grid-column-gap: 5px;
+            border: 1px solid black;
+            width: 650px;
+            
+            
+        }
+        .item {
+            font-size: 2em;
+            text-align: center;
+            /* border: 1px solid #e5e4e9; */
+            cursor: pointer;
+        }
+        .item:hover{
+            transform: scale(1.2);
+        }
+        .mutate{
+            display: flexbox;
+            margin: 50px;
+        }
+        .active{
+            border:2px solid red;
+        }
+        footer .hr1{
+            text-align: center;
+            margin-top: 1000px;
+        }
+        footer{
+
+            text-align: center;
+        }
+        
+        #evolve{
+            
+            display: none;
+            
+        }
+
+        
+      </style>
+</head>
+<body onload="draw()">
+<!-- <body> -->
+    <div class="container">
+
+        <div class="row" style="height: 8%;">
+            <div class="col" style="align-self: center;">
+              <h1>Interactive Image Evolution</h1>
+            </div>
+          </div>
+          <hr class="hr1"/>
+          <div class="row">
+              <ul class="nav">
+                  <li class="nav-item">
+                      <a class="nav-link" id="aHome" style="color: red;" aria-current="page" href="javascript:void(0)" onclick="goHome()"><h2>Home</h2></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" id="aEvo" style="color: black;" href="#evolve" onclick="goEvolve()"><h2>Evolve</h2></a>
+                  </li>
+              </ul>
+          </div>
+        <div id="home" class="tab-content tab-content-show">
+            <h1>Introduction:</h1>
+            <h3 style="width: 60%;">This is an interactive image evolution system based on interactive evolutionary computation (IEC) and compositional pattern producing networks (CPPNs).
+                There are many similar systems in existence, this system is unique in that it will calculate the image complexity in the background to filter out boring images, improving the user experience and reducing user fatigue.
+            </h3>
+
+            <a href="#" onclick="goEvolve()"><h3 style="margin-top:100px ;">Let’s get start!</h3></a>
+
+            
+        </div>
+
+        <div id="evolve">
+            <div id="discribe">
+                <h4 style="width: 60%">
+                    You can choose the images you like (at most 3 images) and click button ‘mutate’, the system will generate a set of images that, which are based on your last selection.
+                    
+                    If you like these images, you can save them by clicking the right button of mouse.<br>
+                    
+                    
+                </h4>
+                <h4>Let’s get start!</h4>
+            </div>
+            <div id="canvasImage" class="tab-content tab-content-hide">
+            
+                <div class="item item-1">
+                    <canvas id="canvas1" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-2">
+                    <canvas id="canvas2" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-3">
+                    <canvas id="canvas3" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-4">
+                    <canvas id="canvas4" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-5">
+                    <canvas id="canvas5" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-6">
+                    <canvas id="canvas6" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-7">
+                    <canvas id="canvas7" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-8">
+                    <canvas id="canvas8" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-9">
+                    <canvas id="canvas9" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-10">
+                    <canvas id="canvas10" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-11">
+                    <canvas id="canvas11" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-12">
+                    <canvas id="canvas12" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-13">
+                    <canvas id="canvas13" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-14">
+                    <canvas id="canvas14" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-15">
+                    <canvas id="canvas15" width="120" height="120"></canvas>
+                </div>
+                
+    
+                <div class="item item-16">
+                    <canvas id="canvas16" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-17">
+                    <canvas id="canvas17" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-18">
+                    <canvas id="canvas18" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-19">
+                    <canvas id="canvas19" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-20">
+                    <canvas id="canvas20" width="120" height="120"></canvas>
+                </div>
+    
+                <div class="item item-21">
+                    <canvas id="canvas21" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-22">
+                    <canvas id="canvas22" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-23">
+                    <canvas id="canvas23" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-24">
+                    <canvas id="canvas24" width="120" height="120"></canvas>
+                </div>
+                <div class="item item-25">
+                    <canvas id="canvas25" width="120" height="120"></canvas>
+                </div>
+    
+                
+    
+            </div>
+            <div>
+                <button id="button" style="margin: 10px; padding: 20px;float: left; ">mutate</button>
+            </div>
+            <div>
+                <button id="button" style="margin: 10px; padding: 20px" onclick="reload()">restart</button>
+            </div>
+        </div>
+
+        
+        
+        <footer>
+            <div class="row">
+                <hr class="hr1"/>
+            </div>
+            <p>Supervisior: James McDermott<br>
+                Author: Chenguang Fang<br>
+                E-mail:
+            <a href="C.Fang4@nuigalway.ie">C.Fang4@nuigalway.ie</a></p>
+        </footer>
+       
+
+    </div>
+    <script>
+        //function to generate an integer in the specified range
+
+        function randomInt(min, max) {
+            return Math.round(Math.random() * (max - min)) + min;
+        }
+
+        //generate a random float between 0 to 1 
+        function randomFloat(){
+            return Math.random()
+        }
+
+        //this function is uesd to generate a random array and this array is input array to a node
+        function randomArray(startNum,endNum){
+            let arr = []
+            let arrLength = randomInt(1,endNum - startNum + 1)
+            for(var i = 0; i < arrLength; i++){
+                arr.push(randomInt(startNum,endNum))
+            }
+            
+            //sort and remove duplication (if use array.sort() directly,this method cannot sort numbers above 10 )
+            arr = [...new Set(arr.sort((a,b) => {
+                return a - b
+            }))]
+            return arr
+
+        }
+        //test
+        // console.log(randomArray(1,10));
+
+        let activationFun = ['sigmoid', 'gaussian', 'sine','cosine','tan','tanh']
+        function sigmoid(x){
+            //Math.exp(x) == e^x
+            return 1 / (1 + Math.exp(-x))
+        }
+        function gaussian(x,a){
+            return (1/(a*Math.sqrt(2*Math.PI))) * Math.exp(-((x*x)/(2*a*a)))
+        }
+        function sine(x){
+            return Math.sin(x)
+        }
+        function cosine(x){
+            return Math.cos(x)
+        }
+        function tan(x){
+            return Math.tan(x)
+        }
+        function tanh(x){
+            return Math.tanh(x)
+        }
+
+        //the length of cppn can be set in a specific range(min, max) (include ['identity',['x'],[1]], ['identity',['y'],[1]])
+        function create_random_cppn(min,max){
+            
+            //cppn: [[activation function,[input array],weight]]
+            var cppnArrayLen = randomInt(min,max);
+            var cppnArray = new Array(cppnArrayLen);
+
+            //the first two items of outer array are special, so I list them separately
+            //for inner array
+            //the first item of array is choose a random activation function for this node,
+            //the second item of array is input nodes array,
+            //The third item should be an *array of weights*, one weight for each input. (between 0 to 1)
+            cppnArray[0] = ['identity',['x'],[1]]
+            cppnArray[1] = ['identity',['y'],[1]]
+            for(var i = 2; i < cppnArrayLen; i++){
+                var randomArr = randomArray(0,i-1)
+                var weightList = []
+                for(var j = 0; j < randomArr.length; j++){
+                    weightList.push(randomFloat())
+                }
+                cppnArray[i] = [activationFun[randomInt(0,3)],randomArr,weightList]
+            }
+            //change the last node activation function to 'sigmoid
+            cppnArray[cppnArrayLen-1].splice(0,1,'sigmoid')
+            return cppnArray
+        }
+        // test
+        // var random_cppn = create_random_cppn(10,15);
+        // console.log(random_cppn);
+
+        function run_cppn(init_cppn,x,y){
+            //to get the length of the cppn
+            var init_cppnLength = init_cppn.length
+            //create a output list to every node's output
+            var outputList = new Array(init_cppnLength);
+            //because the first and second items' output of cppp are special
+            //we set directly
+            outputList[0] = x
+            outputList[1] = y
+            for(var i = 2; i < init_cppnLength; i++){
+                // calculate the weighted sum of inputs
+                var weightedSum = 0
+                //input nodes array has the same length as weight array:
+                //example (one of node in cppn): arr = [ 'gaussian', [ 0, 1 ], [ 0.8201723532981295, 0.4148916826880116 ] ]
+                //arr[1].length == arr[2].length
+                for(var j = 0; j < init_cppn[i][1].length; j++){
+                    weightedSum += outputList[init_cppn[i][1][j]] * init_cppn[i][2][j]
+                }
+
+                // calcuate every node output
+                if(init_cppn[i][0] == 'sigmoid'){
+                    outputList[i] = sigmoid(weightedSum)
+                }else if(init_cppn[i][0] == 'gaussian'){
+                    outputList[i] = gaussian(weightedSum,3)
+                }else if(init_cppn[i][0] == 'sine'){
+                    outputList[i] = sine(weightedSum)
+                }else if(init_cppn[i][0] == 'cosine'){
+                    outputList[i] = cosine(weightedSum)
+                }else if(init_cppn[i][0] == 'tan'){
+                    outputList[i] = tan(weightedSum)
+                }else{
+                    outputList[i] = tanh(weightedSum)
+                }
+            }
+            //By default we set the output of the last node as the output of the entire cppn
+            var run_cppn_output = outputList[init_cppnLength-1]
+            return run_cppn_output
+        }
+        //test
+        // var aaa = create_random_cppn(5,10)
+        // var run_a_cppn = run_cppn(aaa,80,90)
+        // console.log(run_a_cppn);
+
+
+        // check_cppn is used to check cppn that 
+        // if every item in input array (inner cppn array) is less than the index of the node;
+        //check if every node has at least one input
+        function check_cppn(cppnArray){
+            // console.log(cppnArray)
+            var cppnlength = cppnArray.length
+            for(var i = 2; i < cppnlength; i++){
+                for(var j = 0; j < cppnArray[i][1].length; j++)
+                if( cppnArray[i][1][j] > i || cppnArray[i][1][j] == i || cppnArray[i][1].length == 0){
+                    console.log('problem index: ' + i)
+                    return false
+                }
+            }
+            return true
+        }
+        // var aCppn = create_random_cppn()
+        // console.log(check_cppn(aCppn))
+
+
+        //1.mutate by changing activation function
+        //here change one activation function in one of nodes.
+        function cppn_mutate_change_activationFun(cppnArray){
+            // console.log(cppnArray)
+            var cppnlength = cppnArray.length
+            
+
+            //deep copy from activation function array
+
+            // ------------------------------------------------------
+            var [...activationFun1] = activationFun
+
+            //change the activation function: 
+            // randomIntNum is the index of item which activation function will be changed
+            var randomIntNum = randomInt(2,cppnlength-2)
+            // console.log(randomIntNum)
+
+            //choose a random item of outer array, its first item is activation function
+            var originalAcFun = cppnArray[randomIntNum][0]
+
+            // activationFun1 = ['sigmoid', 'gaussian', 'sine', 'linear']
+            // here if this node activation function is 'sine', 
+            // we delete 'sine' from activationFun1 and choose another activation function randomly.
+            activationFun1.splice(activationFun1.indexOf(originalAcFun),1)
+
+            //choose a new random activation function
+            var newAcFun = activationFun1[randomInt(0,2)]
+            
+            //The new activation function will replace the old one
+            cppnArray[randomIntNum].splice(0,1,newAcFun)
+            cppnArray[cppnArray.length-1].splice(0,1,'sigmoid')
+            // console.log('m1',cppnArray);
+            return cppnArray
+        }
+        //test
+        // var aCppn = create_random_cppn()
+        // console.log(mutate1_cppn(aCppn))
+
+
+        //2. mutate edge
+        //change a edge(change an item in input array) in one node's input array
+        function cppn_mutate_change_edge(cppnArray){
+            // console.log(111,cppnArray,111)
+            var cppnlength = cppnArray.length
+
+            // randomIntNum is the index of item which edge will be changed
+            // var randomIntNum = randomInt(2,cppnlength-1)
+            // console.log('index of being changed node: ' + randomIntNum)
+
+            // if(randomIntNum == cppnArray[randomIntNum][1].length){
+            //     randomIntNum = randomInt(2,cppnlength-1)
+            // }
+            function generateAInt(cppnlength){
+                var randomIntNum = randomInt(2,cppnlength-1)
+                if(randomIntNum !== cppnArray[randomIntNum][1].length){
+                    return randomIntNum
+                }else{
+                    return generateAInt(cppnlength)
+                }
+            }
+            var randomIntNum = generateAInt(cppnlength)
+            //change one of items in the input array
+            // var inputArr = cppnArray[randomIntNum][1]
+            var inputArr = cppnArray[randomIntNum][1]
+
+            var inputArrLength = inputArr.length
+
+            //choose a random edge in input array to change, randomIntEdge is index which need to be changed
+            var randomEdgeIndex = randomInt(0,inputArrLength - 1)
+            
+            
+
+            //inputArr.indexOf(randomNewEdge): check if input array has new edge, if doesn't have, it will return -1 (if it has, it will return index)
+            // if (inputArr.indexOf(randomNewEdge) == -1 ){
+            //     inputArr.splice(randomEdgeIndex,1,randomNewEdge)
+            // }
+            
+            function generateNewEdge(inputArr){
+                
+                //generate a new edge (input), this edge should less than current node index
+                var randomNewEdge = randomInt(0,randomIntNum - 1)
+                // console.log(inputArr.indexOf(randomNewEdge));
+                //inputArr.indexOf(randomNewEdge): check if input array has new edge, if doesn't have, it will return -1 (if it has, it will return index)
+                if ( inputArr.indexOf(randomNewEdge) == -1 ){
+                    inputArr.splice(randomEdgeIndex,1,randomNewEdge)
+                    inputArr = inputArr.sort()
+                    
+                    return inputArr
+                }else{
+                    return generateNewEdge(inputArr)
+                }
+            }
+
+
+            var newInputArr = generateNewEdge(inputArr)
+            // console.log(333,newInputArr);
+            cppnArray[randomIntNum].splice(1,1,newInputArr)
+            cppnArray[cppnArray.length-1].splice(0,1,'sigmoid')
+
+            // console.log('m2',cppnArray);
+            return cppnArray
+        }
+        // test
+        // var aCppn = create_random_cppn()
+        // console.log(cppn_mutate_change_edge(aCppn))
+
+
+        //3. mutate a node (add a new node)
+        function cppn_mutate_add_node(cppnArray){
+            // console.log(cppnArray)
+            var cppnLength = cppnArray.length
+
+            // randomIntNum is the index that we will insert a new node
+            var randomIntNum = randomInt(2,cppnLength)
+            // console.log(randomIntNum)
+            var randomArr = randomArray(0,randomIntNum-1)
+            var randomWeightArr = []
+            for(var j = 0; j < randomArr.length; j++){
+                randomWeightArr.push(randomFloat())
+            }
+            //generate a new node
+            var newNode = [activationFun[randomInt(0,3)],randomArr,randomWeightArr]
+
+
+            //insert the new node to cppn
+            cppnArray.splice(randomIntNum,0,newNode)
+
+
+            //because we add a new node, so don't need to  check
+            //every node input array (edge array)
+            // console.log(cppnArray)
+            return cppnArray
+        }
+        // var aCppn = create_random_cppn()
+        // mutate3_cppn(aCppn)
+
+        //4. delete a Node
+        function cppn_mutate_delete_node(cppnArray){
+            // console.log(cppnArray)
+            var cppnLength = cppnArray.length
+
+            // randomIntNum is the index of the node that we will delete
+            var randomIntNum = randomInt(2,cppnLength)
+            // console.log(randomIntNum);
+            cppnArray.splice(randomIntNum,1)
+            var newCppnLength = cppnArray.length
+            //one of the node have been deleted, 
+            //we should check input array in inner array of newCppn,
+            //check if the items of input array is less than the index of the node
+            //for example: here is a node, suppose the index of the node is 6,
+            // in [4,6] item 6 is >= index 6 so we need delete this item and delete its weight as well
+            // [ 'gaussian', [ 4, 6 ], [ 0.5462298339693481, 0.40477407398019394 ] ]
+
+            // example:
+            //here i already do some operation to fix the problem: 
+            // originally, node 5 has input from node 4, after mutation,
+            //node 5 becomes node 4, so i delete related input item in input array
+            // [
+            //     [ 'identity', [ 'x' ], [ 1 ] ],
+            //     [ 'identity', [ 'y' ], [ 1 ] ],
+            //     [ 'sigmoid', [ 0 ], [ 0.533737270267691 ] ],
+            //     [ 'gaussian', [ 1 ], [ 0.8646332971156734 ] ],
+            //     [ 'cosine', [ 2, 3 ], [ 0.3258700921556399, 0.8032051350232565 ] ],  this node (node 4) will be deleted
+            //     [
+            //       'sine',
+            //       [ 1, 2, 4 ],                                                     this node (node 5) will become node 4
+            //       [ 0.23014072524043216, 0.9277548002857761, 0.6218220332012201 ]
+            //     ]
+            //   ]
+            //   4     this is index of node will be deleted
+            //   [
+            //     [ 'identity', [ 'x' ], [ 1 ] ],
+            //     [ 'identity', [ 'y' ], [ 1 ] ],
+            //     [ 'sigmoid', [ 0 ], [ 0.533737270267691 ] ],
+            //     [ 'gaussian', [ 1 ], [ 0.8646332971156734 ] ],
+            //     [ 'sine', [ 1, 2 ], [ 0.23014072524043216, 0.9277548002857761 ] ]  this node (new node 4, originally it is node 5)
+            //   ]
+            for(var i = randomIntNum; i < newCppnLength; i++){
+                for(var j = cppnArray[i][1].length - 1; j >= 0; j--)
+                    if( cppnArray[i][1][j] > i || cppnArray[i][1][j] == i){
+                        cppnArray[i][1].splice(j,1)
+                        cppnArray[i][2].splice(j,1)
+                }
+            }
+            if(check_cppn(cppnArray)){
+                
+                cppnArray[cppnArray.length-1].splice(0,1,'sigmoid')
+                // console.log('m4',cppnArray);
+                return cppnArray
+            }
+
+        }
+        // test
+        // var aCppn = create_random_cppn(5,8)
+        // var mutateCppn = cppn_mutate_delete_node(aCppn)
+        // console.log(mutateCppn);
+
+
+        //5. change weight
+        function cppn_mutate_change_weight(cppnArray){
+            // console.log(cppnArray)
+            var cppnlength = cppnArray.length
+
+
+            // randomIntNum is the index of item (node) which weight will be changed
+            var randomIntNum = randomInt(2,cppnlength-1)
+            // console.log(randomIntNum)
+
+            var weightLength = cppnArray[randomIntNum][2].length
+
+            //choose a random item in weight list to change
+            var randomIndex = randomInt(0,weightLength-1)
+            
+
+            cppnArray[randomIntNum][2].splice(randomIndex,1,randomFloat())
+            // console.log(cppnArray)
+            // console.log('m5',cppnArray);
+            return cppnArray
+        }
+        // test
+        // var aCppn = create_random_cppn(5,10)
+        // cppn_mutate_change_weight(aCppn)
+
+        //"roulette wheel" for choose a random mutation function
+        function rouletteWheel(cppn){
+            //p1:change_activationFun; p2:change_edge; p3:add_node; p4:delete_node; p5:change_weight
+            var p1 = 0.2
+            var p2 = 0.2
+            var p3 = 0.2
+            var p4 = 0.2
+            var p5 = 0.2
+
+            var x = Math.random()
+            if(x <= p1) {
+                var newCppn_change_activationFun = cppn_mutate_change_activationFun(cppn)
+                return newCppn_change_activationFun
+            }else if(x > p1 && x <= p1 + p2){
+                var newCppn_change_edge = cppn_mutate_change_edge(cppn)
+                return newCppn_change_edge
+            }else if(x > p1 + p2 &&  x <= p1 + p2 + p3){
+                var newCppn_add_node = cppn_mutate_add_node(cppn)
+                return newCppn_add_node
+            }else if(x > p1 + p2 + p3 && x <= p1 + p2 + p3 + p4){
+                var newCppn_delete_node = cppn_mutate_delete_node(cppn)
+                return newCppn_delete_node
+            }else if(x > p1 + p2 + p3 + p4  && x <= p1 + p2 + p3 + p4 + p5){
+                var newCppn_change_weight = cppn_mutate_change_weight(cppn)
+                return newCppn_change_weight
+            }
+
+            
+        }
+
+        function run_cppn_grid(cppn, xmin, xmax, xsize, ymin, ymax, ysize){
+            //here i create a tensor and convert a tensor to regular js array
+
+            //here is example: tf.linspace(0,9,10), the range is [0,9], 
+            // the length of tensor is 10,so output is [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] 
+            const xtensor = tf.linspace(xmin, xmax, xsize)
+            const ytensor = tf.linspace(ymin, ymax, ysize)
+
+            //convert tensor to regular js array
+            const xArray = Array.from(xtensor.dataSync())
+            const yArray = Array.from(ytensor.dataSync())
+
+            var cppn_grid_array = []
+            xArray.forEach((xitem,xindex) => {
+                yArray.forEach((yitem,yindex)=> {
+                    var cppnX = run_cppn(cppn,xitem,yitem)
+                    cppn_grid_array.push(cppnX)
+                })
+            })
+            
+            
+            return cppn_grid_array
+        }
+        // var initCppn = create_random_cppn(15,30)
+        // console.log(check_cppn(initCppn));
+        // var ccc = run_cppn_grid(initCppn,0,1,10,0,1,10)
+        // console.log(ccc);
+
+
+        //generate 2d array
+        function run_cppn_grid2(cppn, xmin, xmax, xsize, ymin, ymax, ysize){
+            //here i create a tensor and convert a tensor to regular js array
+
+            //here is example: tf.linspace(0,9,10), the range is [0,9], 
+            // the length of tensor is 10,so output is [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] 
+            const xtensor = tf.linspace(xmin, xmax, xsize);
+            const ytensor = tf.linspace(ymin, ymax, ysize);
+
+            //convert tensor to regular js array
+            const xArray = Array.from(xtensor.dataSync());
+            const yArray = Array.from(ytensor.dataSync());
+            
+            var cppn_grid_array = [];
+            // var cppn_grid_array1 = []
+            var innerArray = [];
+            yArray.forEach((yitem,yindex) => {
+                xArray.forEach((xitem,xindex)=> {
+                    var cppnX = run_cppn(cppn,xitem,yitem);
+                    // cppn_grid_array1.push(cppnX)
+                    if(innerArray.length < xsize ){
+                        innerArray.push(cppnX);
+                    }else{
+                        cppn_grid_array.push(innerArray);
+                        innerArray = [];
+                        innerArray.push(cppnX);
+                    }
+                    
+                })
+                if(yindex == ysize-1){
+                    cppn_grid_array.push(innerArray);
+                }
+            })
+            return cppn_grid_array
+        }
+        // var initCppn = create_random_cppn(15,30);
+        // var ccc = run_cppn_grid2(initCppn,0,1,10,0,1,10);
+        // console.log(ccc);
+
+
+
+        // ----------------------------------------------------------------------------------
+
+        //here are two function to output 3 number for rgb
+        function run_cppn2(init_cppn,x,y){
+            //to get the length of the cppn
+            var init_cppnLength = init_cppn.length
+            //create a output list to every node's output
+            var outputList = new Array(init_cppnLength);
+            //because the first and second items' output of cppp are special
+            //we set directly
+            outputList[0] = x
+            outputList[1] = y
+            for(var i = 2; i < init_cppnLength; i++){
+                // calculate the weighted sum of inputs
+                var weightedSum = 0
+                //input nodes array has the same length as weight array:
+                //example (one of node in cppn): arr = [ 'gaussian', [ 0, 1 ], [ 0.8201723532981295, 0.4148916826880116 ] ]
+                //arr[1].length == arr[2].length
+                for(var j = 0; j < init_cppn[i][1].length; j++){
+                    weightedSum += outputList[init_cppn[i][1][j]] * init_cppn[i][2][j]
+                }
+
+                // calcuate every node output
+                if(init_cppn[i][0] == 'sigmoid'){
+                    outputList[i] = sigmoid(weightedSum)
+                }else if(init_cppn[i][0] == 'gaussian'){
+                    outputList[i] = gaussian(weightedSum,3)
+                }else if(init_cppn[i][0] == 'sine'){
+                    outputList[i] = sine(weightedSum)
+                }else if(init_cppn[i][0] == 'cosine'){
+                    outputList[i] = cosine(weightedSum)
+                }else if(init_cppn[i][0] == 'tan'){
+                    outputList[i] = tan(weightedSum)
+                }else{
+                    outputList[i] = tanh(weightedSum)
+                }
+            }
+            var run_cppn_output = []
+            run_cppn_output.push(outputList[init_cppnLength-3])
+            run_cppn_output.push(outputList[init_cppnLength-2])
+            run_cppn_output.push(outputList[init_cppnLength-1])
+            return run_cppn_output
+        }
+        // return 3 number from every cppn
+        function run_cppn_grid3(cppn, xmin, xmax, xsize, ymin, ymax, ysize){
+            const xtensor = tf.linspace(xmin, xmax, xsize);
+            const ytensor = tf.linspace(ymin, ymax, ysize);
+            const xArray = Array.from(xtensor.dataSync());
+            const yArray = Array.from(ytensor.dataSync());
+            var cppn_grid_array = [];
+            
+            var innerArray = [];
+            yArray.forEach((yitem,yindex) => {
+                xArray.forEach((xitem,xindex)=> {
+                    var cppnX = run_cppn2(cppn,xitem,yitem);
+                    // cppn_grid_array1.push(cppnX)
+                    if(innerArray.length < xsize ){
+                        innerArray.push(cppnX);
+                    }else{
+                        cppn_grid_array.push(innerArray);
+                        innerArray = [];
+                        innerArray.push(cppnX);
+                    }
+                })
+                if(yindex == ysize-1){
+                    cppn_grid_array.push(innerArray);
+                }
+            })
+            return cppn_grid_array
+        }
+
+
+
+
+
+
+
+
+        
+        var ctx1 = canvas1.getContext('2d');
+
+        var item = document.getElementsByClassName('item')
+        var canvass = document.getElementsByTagName('canvas')
+
+        //generate every canvas image data
+        function generateImageData(cppn){
+              const imageData = ctx1.createImageData(100, 100);
+              var grid = run_cppn_grid(cppn,-20,20,100,-20,20,100)
+            //   console.log(grid);
+              let n = 0;
+              for (let i = 0; i < imageData.data.length; i += 4) {
+                  // Modify pixel data
+                  
+                  if(i == 0){
+                      let colorNum = grid[i]*255
+                      imageData.data[i + 0] = colorNum;  // R value
+                      imageData.data[i + 1] = colorNum;    // G value
+                      imageData.data[i + 2] = colorNum;  // B value
+                      imageData.data[i + 3] = 255;  // A value
+                      n++
+                  }else{
+                      let colorNum = grid[i-3*n]*255
+                      imageData.data[i + 0] = colorNum;  // R value
+                      imageData.data[i + 1] = colorNum;    // G value
+                      imageData.data[i + 2] = colorNum;  // B value
+                      imageData.data[i + 3] = 255;  // A value
+                      n++  
+                  }
+              }
+            //   console.log(imageData);
+            //   return imageData
+              return [imageData,grid]
+        }
+
+        //generate cppn and imageData for canvas
+        var cppnData = []
+        // var imageData = []
+
+        for(var i = 0; i < 25; i++){
+            cppnData.push(create_random_cppn(50,100))
+        }
+
+
+        var imageData = []
+        var dataArr = []
+        for(var i = 0; i < 25; i++){
+            imageData.push(generateImageData(cppnData[i])[0])
+            dataArr.push(generateImageData(cppnData[i])[1])
+        }
+        // for(var i = 0; i < 25; i++){
+        //     if(calEntropy(dataArr[i]) < 245.35){
+
+        //     }
+        // }
+        var n = 0
+        item.forEach(item=>{
+            item.onclick = function(){
+              
+              if(item.style.border === '1px solid red'){
+                  item.style.border = ''
+                  n == 0 ? n=0 : n--
+              }else{
+                  item.style.border = '1px solid red'
+                  n++
+              }
+              if(n>=4){
+                  alert('maximum select 3 images')
+                  item.style.border = ''
+                  n--
+              }
+
+
+            //   console.log(n);
+            }
+        })
+
+        
+        var btn = document.getElementById('button')
+        
+        btn.addEventListener('click',function(){
+            var mutateCppnData = []
+            if( n == 0 ) {
+                alert('please choose at least 1 image')
+            }else if(n == 1){
+                item.forEach((item1,index)=>{
+                    if(item1.style.border === '1px solid red'){
+                        item1.style.border = ''
+                        for(var i = 0; i < 15; i++){
+                            //do mutation for the image has been selected
+                            mutateCppnData.push(rouletteWheel(cppnData[index]))
+                        }
+
+                        // console.log('mutation array',mutateCppnData);
+                        cppnData.splice(0,15,...mutateCppnData)
+                    }
+                })
+                // console.log('v1:',cppnData);
+                n = 0
+                // console.log('after mutating, new cppn array: ',cppnData);
+
+                // for(var i = 0; i < 25; i++){
+                //     imageData.push(generateImageData(cppnData[i]))
+                // }
+
+                // for(var i = 0; i < 25; i++){
+                //     var ctx = canvass[i].getContext('2d')
+                    
+                //     ctx.putImageData(imageData[i],10,10)
+                // }
+                var randomCppn = []
+                for(var i = 0; i < 10; i++){
+                    randomCppn.push(create_random_cppn(5,10))
+                }
+                // console.log('randomCppn:', randomCppn);
+
+                cppnData.splice(15,24,...randomCppn)
+
+                // console.log('v2:', cppnData);
+
+                // cppnData.sort( ()=> { return 0.5-Math.random() } )
+
+                imageData = []
+                for(var i = 0; i < 25; i++){
+                    
+                    imageData.push(generateImageData(cppnData[i])[0])
+
+                }
+                // console.log(imageData);
+                for(var i = 0; i < 25; i++){
+                    var ctx = canvass[i].getContext('2d')
+                    ctx.putImageData(imageData[i],10,10)
+                }
+            }else if(n == 2){
+                var indexArr = []
+                item.forEach((item1,index)=>{
+                    if(item1.style.border === '1px solid red'){
+                        item1.style.border = ''
+                        indexArr.push(index)
+                        // for(var i = 0; i < 9; i++){
+                        //     mutateCppnData.push(rouletteWheel(cppnData[index]))
+                        // }
+                        // cppnData.splice(0,9,...mutateCppnData)
+                        
+                    }
+                })
+                for(var i = 0; i < 10; i++){
+                    mutateCppnData.push(rouletteWheel(cppnData[indexArr[0]]))
+                }
+                for(var i = 0; i < 10; i++){
+                    mutateCppnData.push(rouletteWheel(cppnData[indexArr[1]]))
+                }
+                cppnData.splice(0,20,...mutateCppnData)
+                n = 0
+                var randomCppn = []
+                for(var i = 0; i < 5; i++){
+                    randomCppn.push(create_random_cppn(5,10))
+                }
+                cppnData.splice(20,24,...randomCppn)
+                
+                console.log(cppnData);
+                
+                cppnData.sort( ()=> { return 0.5-Math.random() } )
+
+                imageData = []
+                for(var i = 0; i < 25; i++){
+                    imageData.push(generateImageData(cppnData[i])[0])
+                }
+
+                for(var i = 0; i < 25; i++){
+                    var ctx = canvass[i].getContext('2d')
+                    ctx.putImageData(imageData[i],10,10)
+                }
+            }else if(n == 3){
+                var indexArr = []
+                item.forEach((item1,index)=>{
+                    if(item1.style.border === '1px solid red'){
+                        item1.style.border = ''
+                        indexArr.push(index)
+                        // for(var i = 0; i < 9; i++){
+                        //     mutateCppnData.push(rouletteWheel(cppnData[index]))
+                        // }
+                        // cppnData.splice(0,9,...mutateCppnData)
+                        
+                    }
+                })
+                for(var i = 0; i < 7; i++){
+                    mutateCppnData.push(rouletteWheel(cppnData[indexArr[0]]))
+                }
+                for(var i = 0; i < 7; i++){
+                    mutateCppnData.push(rouletteWheel(cppnData[indexArr[1]]))
+                }
+                for(var i = 0; i < 7; i++){
+                    mutateCppnData.push(rouletteWheel(cppnData[indexArr[2]]))
+                }
+                cppnData.splice(0,21,...mutateCppnData)
+                n = 0
+                var randomCppn = []
+                for(var i = 0; i < 4; i++){
+                    randomCppn.push(create_random_cppn(5,10))
+                }
+                cppnData.splice(21,24,...randomCppn)
+                
+                console.log(cppnData);
+                
+                cppnData.sort( ()=> { return 0.5-Math.random() } )
+
+                imageData = []
+                for(var i = 0; i < 25; i++){
+                    imageData.push(generateImageData(cppnData[i])[0])
+                }
+
+                for(var i = 0; i < 25; i++){
+                    var ctx = canvass[i].getContext('2d')
+                    ctx.putImageData(imageData[i],10,10)
+                }
+            }
+            
+            
+            // var  imageData2 = []
+            // for(var i = 0; i < 9; i++){
+            //     imageData2.push(generateImageData(mutateCppnData[i]))
+            // }
+
+            // for(var i = 0; i < 9; i++){
+            //     var ctx = canvass[i].getContext('2d')
+                
+            //     ctx.putImageData(imageData2[i],10,10)
+            // }
+        })
+
+
+        function calEntropy(arr){
+            for(let i = 0; i < arr.length; i++){
+                arr[i] = Math.round(arr[i]*255)
+            }
+
+            //transfer dataArr to a 2d array, prepare for calculating entropy
+            var arr1 = []
+            var dataArr2d = []
+            for (let i = 0; i < arr.length; i++) {
+                arr1.push(arr[i])
+                if(arr1.length === 100){
+                    dataArr2d.push(arr1)
+                    arr1 = []
+                }
+            }
+
+            //divide the 2d array to another 2d array to consider pixel position.
+            var dividedArr = []
+            var arr2 = []
+            for (let k = 0; k < 10; k++) {
+                for (let i = 0; i < 100; i++) {
+                    for (let j = k*10; j < k*10+10; j++) {
+                        arr2.push(dataArr2d[i][j])
+                        
+                    }
+                    if(i%10 === 9){
+                        dividedArr.push(arr2)
+                        arr2 = []
+                    }
+                } 
+            }
+            // console.log(dividedArr);
+
+            // start calcuate entropy
+            //dividerArr is a 2d array 100*100
+            //calculate every color's rate in one 'square' area, 
+            // for example: from 0~255, 138 appears 3 time, probability is 3/100
+            var probabilityArr = []
+            for (let i = 0; i < dividedArr.length; i++) {
+                var subProbabilityArr = []
+                for(let k = 0; k < 256; k++){
+                    let n = 0;
+                    for(let j = 0; j < dividedArr[i].length; j++){
+                        if( k == dividedArr[i][j] ){
+                            n++
+                        }
+                    }
+                    subProbabilityArr.push(n/100)
+                }
+                probabilityArr.push(subProbabilityArr)
+            }
+            // console.log(probabilityArr);
+
+
+            var logP = []
+            for (let j = 0; j < probabilityArr.length; j++) {
+                let subLogP = []
+                for(let i = 0; i < probabilityArr[j].length; i++){
+                    if(Math.log2(probabilityArr[j][i]) == -Infinity){
+                        subLogP.push(0)
+                    }else{
+                        subLogP.push(Math.log2(probabilityArr[j][i]))
+                    }
+                    
+                }
+                logP.push(subLogP)
+                
+            }
+            // console.log(logP);
+
+            var mul_result = []
+            for (let i = 0; i < probabilityArr.length; i++) {
+                let subMul_result = []
+                for(let j = 0; j < probabilityArr[i].length; j++){
+                    subMul_result.push(probabilityArr[i][j]* logP[i][j])
+                    
+                }
+                mul_result.push(subMul_result)
+                
+            }
+
+            
+            var sumMul_result = []
+            for (let i = 0; i < mul_result.length; i++) {
+                let subSumMul_result = 0
+                for(let j = 0; j < mul_result[i].length; j++){
+                    subSumMul_result += mul_result[i][j]
+                    
+                }
+                sumMul_result.push(subSumMul_result)
+                
+            }
+
+            var finSum_result = 0
+            for (let i = 0; i < sumMul_result.length; i++) {
+                finSum_result += sumMul_result[i]
+            }
+
+            return -finSum_result
+            
+        }
+
+
+        function draw(){
+            for(var i = 0; i < 25; i++){
+                imageData.push(generateImageData(cppnData[i])[0])
+            }
+
+            for(var i = 0; i < 25; i++){
+                var ctx = canvass[i].getContext('2d')
+                ctx.putImageData(imageData[i],10,10)
+            }
+            
+        }
+
+        var oHome = document.getElementById('aHome')
+        var oEvo = document.getElementById('aEvo')
+        function goHome(){
+        
+            oHome.style.color = 'red';
+            oEvo.style.color = 'black';
+            document.getElementById('home').style.display = 'grid'
+            document.getElementById('evolve').style.display = ''
+        }
+        function goEvolve(){
+            
+            
+            oHome.style.color = 'black';
+            oEvo.style.color = 'red';
+            document.getElementById('home').style.display = 'none'
+            document.getElementById('evolve').style.display = 'grid'
+            
+        }
+
+        function reload(){
+            window.location.reload()
+        }
+ 
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</body>
+</html>
